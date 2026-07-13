@@ -130,6 +130,7 @@ public void OnBlockLanded(Block landedBlock)
         cameraFollow.SetTarget(_previousBlock.Position);
 
     SpawnMovingBlock();
+    scoreManager.AddBlockPlaced(); 
 }
 
     public void GameOver()
