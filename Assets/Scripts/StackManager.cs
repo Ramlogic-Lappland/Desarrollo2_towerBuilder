@@ -19,6 +19,9 @@ public class StackManager : MonoBehaviour
 
     [Header("Physics")]
     [SerializeField] private float stabilizationDelay = 0.1f; // freeze when snap
+    
+    [Header("UI")]
+    [SerializeField] private GameOverMenu gameOverMenu; 
 
     private MyInputSystem _controls;
     private Block _previousBlock;
@@ -26,10 +29,17 @@ public class StackManager : MonoBehaviour
     private Rigidbody _currentRB;
     private bool _isDropping = false;
     
+    private static bool _isGameOver = false;  
+    
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        _isGameOver = false;
+
         _previousBlock = FindFirstObjectByType<Block>();
-        if (_previousBlock == null) //  TODO: Choose if Spawn a block at base position Or can add a black to the Scene
+        if (_previousBlock == null)
         {
             GameObject baseObj = Instantiate(blockPrefab, startPosition, Quaternion.identity, stackParent);
             Block baseBlock = baseObj.GetComponent<Block>();
@@ -135,11 +145,43 @@ public void OnBlockLanded(Block landedBlock)
 
     public void GameOver()
     {
+        if (_isGameOver) return;
+        _isGameOver = true;
+
         Debug.Log("Game Over – tower collapsed!");
-        // TODO: Disable input, stop spawning, show UI, etc.
-        _controls.Player.Drop.performed -= OnDropPerformed;
+
+        // Disable input
+        if (_controls != null)
+        {
+            _controls.Player.Drop.performed -= OnDropPerformed;
+            _controls.Player.Disable();
+        }
+        
         this.enabled = false;
         
+        if (_currentMovingBlock != null)
+        {
+            Destroy(_currentMovingBlock);
+            _currentMovingBlock = null;
+        }
+
+        _isDropping = false;
+
+        // Show the game‑over UI
+        if (gameOverMenu != null)
+            gameOverMenu.EnableGameOverScreen();
+
+        // Unlock cursor so the player can click buttons
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        
+        // crumble tower
+        Rigidbody[] allRbs = stackParent.GetComponentsInChildren<Rigidbody>(); 
+        foreach (Rigidbody rb in allRbs)
+        {
+            rb.isKinematic = false;
+            rb.constraints = RigidbodyConstraints.None;
+        }
     }
     
     private System.Collections.IEnumerator StabilizeBlock(Rigidbody rb)

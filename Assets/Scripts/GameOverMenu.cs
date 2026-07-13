@@ -10,12 +10,12 @@ public class GameOverMenu : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Scenes/SolarSystem");
+        SceneManager.LoadScene("Scenes/Game");
     }
 
     public void MainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Scenes/Menu");
+        SceneManager.LoadScene("Scenes/MainMenu");
     }
 }

@@ -13,11 +13,9 @@ public class TowerTiltManager: MonoBehaviour
 
     void CheckTilt()
     {
-        if (gameOver) return;
         float angle = Vector3.Angle(Vector3.up, transform.up);
         if (angle > maxTiltAngle)
         {
-            gameOver = true;
             StackManager sm = FindFirstObjectByType<StackManager>();
             if (sm != null) sm.GameOver();
         }
