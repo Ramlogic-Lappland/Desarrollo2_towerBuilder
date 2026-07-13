@@ -17,6 +17,6 @@ public class CraneArmController : MonoBehaviour
     {
         float xOffset = Mathf.PingPong(Time.time * moveSpeed, moveRange * 2) - moveRange;
         Vector3 newPos = startPosition + new Vector3(xOffset, 0, 0);
-        transform.position = new Vector3(newPos.x, transform.position.y, transform.position.z);
+        transform.position = newPos;
     }
 }

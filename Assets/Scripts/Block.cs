@@ -45,9 +45,19 @@ public class Block : MonoBehaviour
     
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("StackBlock") || collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
-            StackManager stackManager = FindObjectOfType<StackManager>();
+            StackManager stackManager = FindFirstObjectByType<StackManager>();
+            if (stackManager != null)
+            {
+                stackManager.GameOver();
+                return;
+            }
+        }
+        
+        if (collision.gameObject.CompareTag("StackBlock"))
+        {
+            StackManager stackManager = FindFirstObjectByType<StackManager>();
             if (stackManager != null)
                 stackManager.OnBlockLanded(GetComponent<Block>());
         }

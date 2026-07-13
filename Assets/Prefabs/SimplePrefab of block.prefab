@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4893185318457308911}
   m_Layer: 0
   m_Name: SimplePrefab of block
-  m_TagString: Untagged
+  m_TagString: StackBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,7 +100,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1080614961067335989}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 3caa55ef48f65d542aaed3c5ee6e5b22, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -140,7 +140,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &4893185318457308911
 MonoBehaviour:
   m_ObjectHideFlags: 0
