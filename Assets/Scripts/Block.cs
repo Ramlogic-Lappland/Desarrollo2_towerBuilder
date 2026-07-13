@@ -3,7 +3,7 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     private float _width;   
-    private new Rigidbody _rb;
+    private Rigidbody _rb;
 
     void Awake()
     {

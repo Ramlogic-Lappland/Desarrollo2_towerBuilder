@@ -1541,10 +1541,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 697233756}
   m_HandleRect: {fileID: 41837518}
   m_Direction: 0
-  m_MinValue: -40
-  m_MaxValue: 20
+  m_MinValue: 0.0001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.0001
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -3609,6 +3609,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 947853301690341563, guid: 6342baf98dc909f43a1caa308f3f6095, type: 3}
+      propertyPath: tracks.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 947853301690341563, guid: 6342baf98dc909f43a1caa308f3f6095, type: 3}
       propertyPath: tracks.Array.data[0].clip
       value: 
       objectReference: {fileID: 8300000, guid: 3d65ebdde4c959f49aaeef93d47ec391, type: 3}
@@ -4107,10 +4111,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1650422809}
   m_HandleRect: {fileID: 1199276958}
   m_Direction: 0
-  m_MinValue: -40
-  m_MaxValue: 20
+  m_MinValue: 0.0001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.0001
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

@@ -202,6 +202,9 @@ MonoBehaviour:
   - groupID: hover
     clips:
     - {fileID: 8300000, guid: f3eacc384874cc34cb272321ea5102ba, type: 3}
+  - groupID: bonk
+    clips:
+    - {fileID: 8300000, guid: f9cbe16ff9ea6eb4c9432f72ff671c9c, type: 3}
 --- !u!114 &5510834849554306726
 MonoBehaviour:
   m_ObjectHideFlags: 0
