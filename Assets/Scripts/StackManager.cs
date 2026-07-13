@@ -11,7 +11,8 @@ public class StackManager : MonoBehaviour
     [SerializeField] private Transform stackParent;  
     [SerializeField] private CameraFollow cameraFollow;
     [SerializeField] private ScoreManager scoreManager;
-
+    [SerializeField] private PauseMenu pauseMenu; 
+    
     [Header("Stack Settings")]
     [SerializeField] private float blockHeight = 0.5f;
     [SerializeField] private float perfectTolerance = 0.02f;
@@ -147,6 +148,8 @@ public void OnBlockLanded(Block landedBlock)
     {
         if (_isGameOver) return;
         _isGameOver = true;
+        if (pauseMenu != null)
+            pauseMenu.OnGameOver();
 
         Debug.Log("Game Over – tower collapsed!");
 
