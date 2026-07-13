@@ -45,6 +45,7 @@ public class Block : MonoBehaviour
     
     void OnCollisionEnter(Collision collision)
     {
+        SoundManager.instance.PLaySound3D("bonk", transform.position);
         if (collision.gameObject.CompareTag("Ground"))
         {
             StackManager stackManager = FindFirstObjectByType<StackManager>();
