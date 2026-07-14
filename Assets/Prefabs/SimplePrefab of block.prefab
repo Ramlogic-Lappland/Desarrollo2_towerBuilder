@@ -153,3 +153,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1306b4210b5db904286ef05017f3151b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BLock
+  baseWidth: 1

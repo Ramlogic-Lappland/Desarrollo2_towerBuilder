@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,7 +8,7 @@ public class StackManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Vector3 startPosition = new Vector3(0, 0.25f, 0);
-    [SerializeField] private GameObject blockPrefab;
+    [SerializeField] private List<GameObject> blockPrefabs; 
     [SerializeField] private Transform stackParent;  
     [SerializeField] private CameraFollow cameraFollow;
     [SerializeField] private ScoreManager scoreManager;
@@ -38,11 +39,17 @@ public class StackManager : MonoBehaviour
         Cursor.visible = false;
 
         _isGameOver = false;
-
+        
         _previousBlock = FindFirstObjectByType<Block>();
         if (_previousBlock == null)
         {
-            GameObject baseObj = Instantiate(blockPrefab, startPosition, Quaternion.identity, stackParent);
+            GameObject basePrefab = blockPrefabs.Count > 0 ? blockPrefabs[0] : null;
+            if (basePrefab == null)
+            {
+                Debug.LogError("No block prefabs assigned!");
+                return;
+            }
+            GameObject baseObj = Instantiate(basePrefab, startPosition, Quaternion.identity, stackParent);
             Block baseBlock = baseObj.GetComponent<Block>();
             baseBlock.SetWidth(2f);
             baseBlock.Freeze();
@@ -53,17 +60,19 @@ public class StackManager : MonoBehaviour
 
     void SpawnMovingBlock()
     {
-        // previous block pos
+        if (blockPrefabs == null || blockPrefabs.Count == 0) return;
+        GameObject selectedPrefab = blockPrefabs[Random.Range(0, blockPrefabs.Count)];
+
         Vector3 spawnPos = _previousBlock.Position + Vector3.up * (craneHeight);
-        _currentMovingBlock = Instantiate(blockPrefab, spawnPos, Quaternion.identity);
+        _currentMovingBlock = Instantiate(selectedPrefab, spawnPos, Quaternion.identity);
         _currentRB = _currentMovingBlock.GetComponent<Rigidbody>();
         _currentRB.isKinematic = true;
-        
+
         _currentMovingBlock.GetComponent<Block>().SetWidth(_previousBlock.Width);
-        
+
         CraneArmController movement = _currentMovingBlock.AddComponent<CraneArmController>();
         movement.enabled = true;
-        
+
         if (cameraFollow != null)
             cameraFollow.SetTarget(_previousBlock.Position);
     }
@@ -152,8 +161,7 @@ public void OnBlockLanded(Block landedBlock)
             pauseMenu.OnGameOver();
 
         Debug.Log("Game Over – tower collapsed!");
-
-        // Disable input
+        
         if (_controls != null)
         {
             _controls.Player.Drop.performed -= OnDropPerformed;
@@ -170,11 +178,11 @@ public void OnBlockLanded(Block landedBlock)
 
         _isDropping = false;
 
-        // Show the game‑over UI
+        // Show the gameover UI
         if (gameOverMenu != null)
             gameOverMenu.EnableGameOverScreen();
 
-        // Unlock cursor so the player can click buttons
+        // Unlock cursor
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         

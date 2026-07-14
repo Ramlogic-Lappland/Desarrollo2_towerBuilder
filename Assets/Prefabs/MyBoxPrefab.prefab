@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 827b5035a6b95434188645eec8510903, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 827b5035a6b95434188645eec8510903, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 827b5035a6b95434188645eec8510903, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 827b5035a6b95434188645eec8510903, type: 3}
       propertyPath: m_LocalPosition.x
@@ -98,7 +98,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1404749525873113817}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 3caa55ef48f65d542aaed3c5ee6e5b22, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -151,3 +151,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1306b4210b5db904286ef05017f3151b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Block
+  baseWidth: 1

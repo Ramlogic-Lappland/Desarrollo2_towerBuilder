@@ -2,13 +2,25 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    private float _width;   
+    private float _width;
     private Rigidbody _rb;
+
+    [SerializeField] private float baseWidth = 1f;
+    private Vector3 _baseColliderSize;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _width = transform.localScale.x;
+        
+        MeshFilter mf = GetComponent<MeshFilter>();
+        if (mf != null && mf.sharedMesh != null)
+            baseWidth = mf.sharedMesh.bounds.size.x;
+
+        BoxCollider col = GetComponent<BoxCollider>();
+        if (col != null)
+            _baseColliderSize = col.size;
+        
+        _width = transform.localScale.x * baseWidth;
     }
 
     public float Width => _width;
@@ -17,14 +29,16 @@ public class Block : MonoBehaviour
     public void SetWidth(float newWidth)
     {
         _width = newWidth;
-        Vector3 scale = transform.localScale;
-        scale.x = newWidth;
-        transform.localScale = scale;
-           
+        float scaleX = newWidth / baseWidth;
+        transform.localScale = new Vector3(scaleX, transform.localScale.y, transform.localScale.z);
+
         BoxCollider col = GetComponent<BoxCollider>();
         if (col != null)
-            col.size = new Vector3(newWidth, scale.y, scale.z);
+        {
+            col.size = new Vector3(_baseColliderSize.x * scaleX, _baseColliderSize.y, _baseColliderSize.z);
+        }
     }
+    
 
     public void Freeze()
     {
